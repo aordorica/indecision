@@ -1,77 +1,91 @@
 'use strict';
 
-console.log("This app is running!");
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var app = {
-    title: 'Indecision App',
-    subtitle: 'Put your life in the hands of a computer!',
-    options: []
-};
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var onFormSubmit = function onFormSubmit(e) {
-    e.preventDefault();
-    var option = e.target.elements.option.value;
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-    if (option) {
-        app.options.push(option);
-        e.target.elements.option.value = '';
-        renderApp();
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var VisibilityToggle = function (_React$Component) {
+    _inherits(VisibilityToggle, _React$Component);
+
+    function VisibilityToggle(props) {
+        _classCallCheck(this, VisibilityToggle);
+
+        var _this = _possibleConstructorReturn(this, (VisibilityToggle.__proto__ || Object.getPrototypeOf(VisibilityToggle)).call(this, props));
+
+        _this.handleVisibility = _this.handleVisibility.bind(_this);
+        var state = {
+            visible: false,
+            text: 'This is a Hidden message'
+        };
+        return _this;
     }
-};
 
-var renderApp = function renderApp() {
-
-    var template = React.createElement(
-        'div',
-        null,
-        React.createElement(
-            'h1',
-            null,
-            app.title
-        ),
-        app.subtitle && React.createElement(
-            'p',
-            null,
-            app.subtitle
-        ),
-        React.createElement(
-            'p',
-            null,
-            app.options.length > 0 ? 'Here are your Options' : 'No Options Available'
-        ),
-        React.createElement(
-            'p',
-            null,
-            app.options.length
-        ),
-        React.createElement(
-            'ol',
-            null,
-            React.createElement(
-                'li',
+    _createClass(VisibilityToggle, [{
+        key: 'handleVisibility',
+        value: function handleVisibility() {
+            this.setState(function (prevState) {
+                return {
+                    visible: !prevState.visible
+                };
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return React.createElement(
+                'div',
                 null,
-                'Item One'
-            ),
-            React.createElement(
-                'li',
-                null,
-                'Item Two'
-            )
-        ),
-        React.createElement(
-            'form',
-            { onSubmit: onFormSubmit },
-            React.createElement('input', { type: 'text', name: 'option' }),
-            React.createElement(
-                'button',
-                null,
-                'Add Button'
-            )
-        )
-    );
+                React.createElement(
+                    'h1',
+                    null,
+                    'Visibility Toggle'
+                ),
+                React.createElement(
+                    'button',
+                    { onClick: this.handleVisibility },
+                    this.state.visible ? 'Hide Details' : 'Show Details'
+                ),
+                this.state.visible && React.createElement(
+                    'p',
+                    null,
+                    this.state.text
+                )
+            );
+        }
+    }]);
 
-    ReactDOM.render(template, appRoot);
-};
+    return VisibilityToggle;
+}(React.Component);
 
-var appRoot = document.getElementById("app");
-renderApp();
+ReactDOM.render(React.createElement(VisibilityToggle, null), document.getElementById('app'));
+
+// console.log("This is the Build-it app running!")
+// const app = {
+//   Text: 'This is a hidden message',
+//   visible: false,
+// };
+
+// const appRoot = document.getElementById("app")
+
+// const makeVisible = (e) => {
+//     app.visible = !app.visible
+//     renderBuild()
+// }
+
+// const renderBuild = () => {
+
+//     const builtItTemplate = (
+//         <div>
+//             <h1>Visibility Toggle</h1>
+//             <button onClick={makeVisible}>{app.visible ? 'Hide Details' : 'Show Details'}</button>
+//             {app.visible && <p>{app.Text}</p>}
+//         </div> 
+//     )
+//     ReactDOM.render(builtItTemplate, appRoot);
+// }
+
+// renderBuild();
