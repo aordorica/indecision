@@ -1,8 +1,8 @@
 class VisibilityToggle extends React.Component {
     constructor(props) {
         super(props)
-        this.handleVisibility = this.handleVisibility.bind(this);
-        const state = {
+        this.handleVisibility = this.handleVisibility.bind(this)
+        this.state = {
             visible: false,
             text: 'This is a Hidden message'
         }
@@ -19,7 +19,7 @@ class VisibilityToggle extends React.Component {
         return (
             <div>
                 <h1>Visibility Toggle</h1>
-                <button onClick={this.handleVisibility}>{this.state.visible ? 'Hide Details' : 'Show Details'}</button>
+                <button onClick={this.handleVisibility}>{app.visible ? 'Hide Details' : 'Show Details'}</button>
                 {this.state.visible && <p>{this.state.text}</p>}
             </div>
         )
