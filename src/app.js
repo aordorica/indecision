@@ -3,29 +3,36 @@ class IndecisionApp extends React.Component {
         super(props)
         this.handleDeleteAll = this.handleDeleteAll.bind(this)
         this.handlePick = this.handlePick.bind(this)
+        this.handleAddOption = this.handleAddOption.bind(this)
         this.state = {
-            options: ["Thing One", "Thing Two", "Thing four"],
+            options: props.options,
         };
     }
 
     handleDeleteAll() {
-        this.setState(() => {
-            return {
-                options: []
-            }
-        })
+        this.setState(() => ({options: []}))
     }
+
     handlePick() {
         const randomNum = Math.floor(Math.random() * this.state.options.length);
         alert(this.state.options[randomNum]);
     }
+
+    handleAddOption(option) {
+        if(!option) {
+            return 'Enter a valid option to add to the list'
+        }else if(this.state.options.indexOf(option) > -1) {
+            return 'This option already exists, please enter another option'
+        }
+
+        this.setState((prevState) => ({options: prevState.options.concat([option])}))
+    }
     render() {
-        const title = 'Indecision App'
         const subtitle = 'Put your fate in the hands of a computer'
         
         return (
             <div>
-                <Header title={title} subtitle={subtitle}/>
+                <Header subtitle={subtitle}/>
                 <Action 
                     hasOptions={this.state.options.length > 0}
                     handlePick={this.handlePick}
@@ -34,57 +41,80 @@ class IndecisionApp extends React.Component {
                     options={this.state.options}
                     handleDeleteAll={this.handleDeleteAll}
                 />
-                <AddOptions/>
+                <AddOptions
+                    handleAddOption={this.handleAddOption}
+                />
             </div>
         )
     }
 }
 
-class Header extends React.Component {
-    render() {
-        return (
-            <div>
-                <h1>{this.props.title}</h1>
-                <h2>{this.props.subtitle}</h2>
-            </div>
-        )
-    }
+IndecisionApp.defaultProps = {
+    options: []
 }
 
-class Options extends React.Component {
-        render() {
-        return (
-            <div className='Options'>
-                <button onClick={this.props.handleDeleteAll}>Remove All</button>
-                {this.props.options.map(option => <Option key={option} optionText={option}/>)}
-            </div>
-        )   
-    }
+const Header = (props) => {
+    return (
+        <div>
+            <h1>{props.title}</h1>
+            {props.subtitle && <h2>{props.subtitle}</h2>}
+        </div>
+    )
 }
 
-class Option extends React.Component {
-    render() {
-        return (
-            <div>
-                {this.props.optionText}
-            </div>
-        )
-    }
+Header.defaultProps = {
+    title: 'Indecision App'
 }
+
+const Options = (props) => {
+    return (
+        <div className="Options">
+        <button onClick={props.handleDeleteAll}>Remove All</button>
+        {props.options.map((option) => (
+            <Option key={option} optionText={option} />
+        ))}
+        </div>
+    );
+}
+
+const Option = (props) => {
+    return <div>{props.optionText}</div>;
+}
+
+const Action = (props) => {
+    return (
+        <div>
+            <button 
+                onClick={props.handlePick}
+                disabled={!props.hasOptions}
+            >
+                What should i do?
+            </button>
+        </div>
+    )
+}
+
 
 class AddOptions extends React.Component {
+    constructor(props) {
+        super(props)
+        this.handleAddOption = this.handleAddOption.bind(this)
+        this.state = {
+            error: undefined
+        }
+    }
     handleAddOption(e) {
         e.preventDefault();
         const option = e.target.elements.option.value.trim();
+        const error = this.props.handleAddOption(option);
 
-        if(option) {
-            alert(option)
-            e.target.elements.option.value=''
-        }
+        this.setState(() => ({error}))
+        e.target.elements.option.value = "";
     }
     render() {
         return (
             <div>
+                {this.state.error && <p>{this.state.error}</p>}
                 <form onSubmit={this.handleAddOption}>
                     <input type="text" name='option' />
                     <button>Add Option</button>
@@ -94,19 +124,6 @@ class AddOptions extends React.Component {
     }
 }
 
-class Action extends React.Component {
-    render() {
-        return (
-        <div>
-            <button 
-                onClick={this.props.handlePick}
-                disabled={!this.props.hasOptions}
-            >
-                What should i do?
-            </button>
-        </div>
-    );
-    }
-}
+
 
 ReactDOM.render(<IndecisionApp/>, document.getElementById('app'))
