@@ -8,7 +8,8 @@
   "scripts": {
     "serve": "live-server public/",
     "build": "webpack",
-    "dev-server": "webpack-dev-server"
+    "dev-server": "webpack-dev-server",
+    "start": "ntl"
   },
   "dependencies": {
     "babel-cli": "6.24.1",
@@ -29,5 +30,9 @@
     "validator": "^13.6.0",
     "webpack": "3.1.0",
     "webpack-dev-server": "2.5.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12",
+    "ntl": "^5.1.0"
   }
 }

@@ -65,7 +65,7 @@ export default class IndecisionApp extends React.Component {
         this.setState((prevState) => ({
             options: prevState.options.concat(option),
         }));
-    };
+    };   
     render() {
         const subtitle = "Put your life in the hands of a computer";
 
