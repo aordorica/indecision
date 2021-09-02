@@ -32,7 +32,6 @@
     "webpack-dev-server": "2.5.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.12",
     "ntl": "^5.1.0"
   }
 }
