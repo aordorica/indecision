@@ -6,6 +6,7 @@
   "author": "Alan Ordorica <alaniordorica@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "start": "node server/server.js",
     "build": "webpack",
     "dev-server": "webpack-dev-server"
   },
