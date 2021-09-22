@@ -6,7 +6,6 @@
   "author": "Alan Ordorica <alaniordorica@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "live-server public/",
     "build": "webpack",
     "dev-server": "webpack-dev-server"
   },
@@ -18,6 +17,7 @@
     "babel-preset-env": "1.5.2",
     "babel-preset-react": "6.24.1",
     "css-loader": "0.28.4",
+    "express": "^4.17.1",
     "live-server": "^1.2.1",
     "node-sass": "4",
     "normalize.css": "7.0.0",
